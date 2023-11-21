@@ -1,2 +1,2 @@
-Advent of Code 2022 <br />
+Advent of Code <br />
 My solutions in Python
