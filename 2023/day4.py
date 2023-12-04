@@ -25,7 +25,7 @@ for i in range(len(data)):
     scratchcards[i+1] = {'count': 1, 'wins': 0}
 
     for num in numbers_you_have:
-        if num in winning_numbers:
+        if num in winning_numbers and num is not None:
             scratchcards[i+1]['wins'] += 1
 
 for card in scratchcards:
