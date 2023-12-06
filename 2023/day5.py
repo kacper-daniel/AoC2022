@@ -1,4 +1,8 @@
-data = open('inputs/day5_input.txt', 'r').read().split('\n\n')
+import math
+
+# input parsing
+
+data = open('inputs/day5_input.txt', 'r').read().split('\n')
 seeds = [int(x) for x in data[0].split(":")[1].strip().split(" ")]
 seed_to_soil = []
 soil_to_fertilizer = []
@@ -7,8 +11,8 @@ water_to_light = []
 light_to_temperature = []
 temperature_to_humidity = []
 humidity_to_location = []
-all = [seeds, seed_to_soil, soil_to_fertilizer, fertilizer_to_water, water_to_light, light_to_temperature, temperature_to_humidity, humidity_to_location]
-i = 1
+all = [seed_to_soil, soil_to_fertilizer, fertilizer_to_water, water_to_light, light_to_temperature, temperature_to_humidity, humidity_to_location]
+i = 0
 for line in data[2:]:
     if line == "":
         i += 1
@@ -19,19 +23,40 @@ for line in data[2:]:
 
 # part one
 
-from math import inf
+def map_to_next(value, list):
+    for item in list:
+        if value in range(item[1], item[1] + item[2]):
+            return item[0] + (value-item[1])    
+    return value
 
-def map(value, list):
-    for x in list:
-        if value in range(x[1], x[1] + x[2]):
-            return x[0] + (value - x[1]) 
+min_location_first = math.inf
+for value in seeds:
+    next = value
+    for i in range(len(all)):
+        next = map_to_next(next, all[i])
+    if next < min_location_first:
+        min_location_first = next
+print(min_location_first)
 
-output_one = float(inf)
-for i in range(len(seeds)):
-    soil = map(seeds[i], seed_to_soil)
-    next = soil
-    for j in range(2, len(all[2:])):
-        next = map(next, all[j])
-    if next < output_one:
-        output_one = next
-print(output_one)
+# part two
+
+new_seeds = []
+for i in range(0, len(seeds), 2):
+    for j in range(seeds[i], seeds[i] + seeds[i+1]):
+        if j not in new_seeds:
+            new_seeds.append(j)
+
+def map_to_next(value, list):
+    for item in list:
+        if item[1] <= value < item[1] + item[2]:
+            return item[0] + (value-item[1])    
+    return value
+
+min_location_second = math.inf
+for value in new_seeds:
+    next = value
+    for i in range(len(all)):
+        next = map_to_next(next, all[i])
+    if next < min_location_second:
+        min_location_second = next
+print(min_location_second)
