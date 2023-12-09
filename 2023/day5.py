@@ -39,24 +39,3 @@ for value in seeds:
 print(min_location_first)
 
 # part two
-
-new_seeds = []
-for i in range(0, len(seeds), 2):
-    for j in range(seeds[i], seeds[i] + seeds[i+1]):
-        if j not in new_seeds:
-            new_seeds.append(j)
-
-def map_to_next(value, list):
-    for item in list:
-        if item[1] <= value < item[1] + item[2]:
-            return item[0] + (value-item[1])    
-    return value
-
-min_location_second = math.inf
-for value in new_seeds:
-    next = value
-    for i in range(len(all)):
-        next = map_to_next(next, all[i])
-    if next < min_location_second:
-        min_location_second = next
-print(min_location_second)

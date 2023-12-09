@@ -1,9 +1,8 @@
 data = open('inputs/day7_input.txt', 'r').read().split('\n')
-cards_and_bids = dict()
-strengths = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
+hands_and_bids = dict()
 for line in data:
     helper = [x for x in line.split(" ")]    
-    cards_and_bids[helper[0]] = int(helper[1])
+    hands_and_bids[helper[0]] = int(helper[1])
 
 def hand_to_dict(hand):
     helper = dict()
@@ -31,31 +30,21 @@ def map_to_category(hand):
     else:
         return 1
     
-# TODO: implement binary sort
+def cards_as_int(hand: str) -> tuple:
+    ordered_labels = 'AKQJT98765432'
+    return (ordered_labels.index(card) for card in hand)
 
-print(cards_and_bids)
+
 sorted_hands = []
-for hand in cards_and_bids.keys():
-    if sorted_hands ==[]:
-        sorted_hands.append(hand)
-    else:
-        actual = map_to_category(hand)
-        for i in range(len(sorted_hands)):
-            curr = map_to_category(sorted_hands[i])
-            if actual < curr:
-                sorted_hands.insert(i, hand)
-                break
-            elif actual == curr:
-                for j in range(len(hand)):
-                    if strengths.index(hand[j])<strengths.index(sorted_hands[i][j]):
-                        sorted_hands.insert(i,hand)
-                        break
-                else:
-                    sorted_hands.append(hand)
-            else:
-                sorted_hands.append(hand)
-print(sorted_hands)
+for hand in hands_and_bids.keys():
+    encoded_hand = (map_to_category(hand), *cards_as_int(hand), hands_and_bids[hand])
+    sorted_hands.append(encoded_hand)
+
+sorted_hands.sort(reverse=True)
+
 output_one = 0
 for i in range(1, len(sorted_hands) + 1):
-    output_one += cards_and_bids[sorted_hands[i-1]] * i
+    output_one += sorted_hands[i-1][-1] * i
 print(output_one)
+
+# TODO: why its not working
