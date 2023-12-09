@@ -19,8 +19,9 @@ for line in data:
     for i in range(2, len(helper) + 1):
         helper[-i].append(helper[-i][-1] + helper[-i+1][-1])
 
-    if len(helper) < 4:
-        print(helper)
-    result += abs(helper[0][-1])
+    result += helper[0][-1]
 
 print(result)
+
+
+# TODO: why its not working
