@@ -11,11 +11,14 @@ for line in data[2:]:
 # part one 
 
 steps = 0
+not_found = True
 curr = "AAA"
-for i in range(len(instructions)):
-    where = int(instructions[i])
-    curr = destinations[curr][where].strip()
-    steps += 1
-    if curr == "ZZZ":
-        print(steps)
-        break
+while not_found:
+    for i in range(len(instructions)):
+        where = int(instructions[i])
+        curr = destinations[curr][where].strip()
+        steps += 1
+        if curr == "ZZZ":
+            not_found = False
+            print(steps)
+            break
