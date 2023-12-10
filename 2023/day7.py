@@ -16,24 +16,23 @@ def hand_to_dict(hand):
 def map_to_category(hand):
     counted_chars = sorted(hand_to_dict(hand).values())
     if counted_chars == [5]:
-        return 7
+        return 1
     if counted_chars == [1, 4]:
-        return 6
+        return 2
     if counted_chars == [2, 3]:
-        return 5
+        return 3
     if counted_chars == [1, 1, 3]:
         return 4
     if counted_chars == [1, 2, 2]:
-        return 3
-    if counted_chars == [1, 1, 1]:
-        return 2
+        return 5
+    if counted_chars == [1, 1, 1, 2]:
+        return 6
     else:
-        return 1
+        return 7
     
 def cards_as_int(hand: str) -> tuple:
     ordered_labels = 'AKQJT98765432'
     return (ordered_labels.index(card) for card in hand)
-
 
 sorted_hands = []
 for hand in hands_and_bids.keys():
@@ -47,4 +46,6 @@ for i in range(1, len(sorted_hands) + 1):
     output_one += sorted_hands[i-1][-1] * i
 print(output_one)
 
-# TODO: why its not working
+# TODO: part two
+
+# part two
