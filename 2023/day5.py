@@ -39,3 +39,27 @@ for value in seeds:
 print(min_location_first)
 
 # part two
+
+def map_to_previous(value, list):
+    for item in list:
+        if item[0] <= value < item[0] + item[2]:
+            return item[1] + (value-item[0])    
+    return value
+
+all_reversed = [seed_to_soil, soil_to_fertilizer, fertilizer_to_water, water_to_light, light_to_temperature, temperature_to_humidity]
+all_reversed.reverse()
+seed_ranges = []
+for index in range(0, len(seeds) - 1, 2):
+    start, length = seeds[index:index+2]
+    seed_ranges.append(range(start, start+length))
+
+location = 0
+found = False
+while not found:
+    potential_seed = map_to_previous(location, humidity_to_location)
+    for i in range(len(all_reversed)):
+        potential_seed = map_to_previous(potential_seed, all_reversed[i])
+    if any(potential_seed in seed_range for seed_range in seed_ranges):
+        print(location)
+        found = True
+    location += 1
