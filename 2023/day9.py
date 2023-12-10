@@ -12,7 +12,7 @@ for line in data:
     helper = [parsed]
     one_below = go_level_down(parsed)
 
-    while sum(one_below) != 0:
+    while not all(one_below) == 0:
         helper.append(one_below)
         one_below = go_level_down(one_below)
 
