@@ -6,8 +6,8 @@ for i in range(len(data)):
         if data[i][j] == "S":
             position = [i,j]
 
-position = [position[0], position[1]+1]
-last_move = [0, 1]
+position = [position[0]-1, position[1]]
+last_move = [-1, 0]
 steps = 1
 while data[position[0]][position[1]] != "S":
     if data[position[0]][position[1]] == "|":
