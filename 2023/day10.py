@@ -6,6 +6,7 @@ for i in range(len(data)):
         if data[i][j] == "S":
             position = [i,j]
 
+whole_loop = [[position[0], position[1]], [position[0]-1, position[1]]]
 position = [position[0]-1, position[1]]
 last_move = [-1, 0]
 steps = 1
@@ -51,6 +52,24 @@ while data[position[0]][position[1]] != "S":
             position = [position[0] + 1, position[1]]
             last_move = [1, 0]
     steps += 1
+    whole_loop.append([position[0], position[1]])
 print(steps // 2)
 
-# TODO: why its not working
+# part two
+
+map = [[c for c in line.strip()] for line in data]
+for i in range(len(map)):
+    norths = 0
+    for j in range(len(map[i])):
+        place = map[i][j]
+        if [i,j] in whole_loop:
+            if place in ["|", "L", "J", "S"]:
+                norths += 1
+            continue
+        if norths % 2 == 0:
+            map[i][j] = "O"
+        else:
+            map[i][j] = "I"
+enclosed = "\n".join(["".join(line) for line in map]).count("I")
+print(enclosed)
+            
