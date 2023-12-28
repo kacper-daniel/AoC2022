@@ -1,0 +1,1 @@
+data = open('inputs/day16_input.txt', 'r').read().splitlines()
