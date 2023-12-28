@@ -1,3 +1,5 @@
+# credits to HyperNeutrino 
+
 data = open('inputs/day12_input.txt', 'r').read().split('\n')
 
 cache = {}

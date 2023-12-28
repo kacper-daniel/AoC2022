@@ -1,3 +1,5 @@
+# credits to HyperNeutrino 
+
 grid = tuple(open('inputs/day14_input.txt', 'r').read().splitlines())
 #grid = open('inputs/day14_input.txt', 'r').read().splitlines()
 

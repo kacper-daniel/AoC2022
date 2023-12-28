@@ -1,4 +1,4 @@
-import numpy as np
+# credits to HyperNeutrino 
 
 data = open('inputs/day13_input.txt', 'r').read().split('\n\n')
 
