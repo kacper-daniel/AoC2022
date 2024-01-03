@@ -26,10 +26,13 @@ instructions = {"U": (-1, 0), "D": (1, 0), "L": (0, -1), "R": (0, 1)}
 
 circ = 0
 
+directions = {"0" : "R", "1": "D", "2": "L", "3": "U"}
+
 for line in data:
-    direction, n, _ = line.split()
+    _, _, helper_instruction = line.split()
+    direction = directions[helper_instruction[-2]]
     dr, dc = instructions[direction]
-    n = int(n)
+    n = int(helper_instruction[2:-2], 16)
     circ += n
     r, c = points[-1]
     points.append((r + dr * n, c + dc * n))
