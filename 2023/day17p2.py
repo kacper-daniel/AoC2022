@@ -9,7 +9,7 @@ pq = [(0, 0, 0, 0, 0, 0)]
 while pq:
     heat_loss, row, col, dr, dc, n = heappop(pq)
 
-    if row == len(grid) - 1 and col == len(grid[0]) - 1:
+    if row == len(grid) - 1 and col == len(grid[0]) - 1 and n >= 4:
         print(heat_loss)
         break
 
@@ -18,15 +18,16 @@ while pq:
 
     seen.add((row, col, dr, dc, n))
 
-    if n < 3 and (dr, dc) != (0, 0):
+    if n < 10 and (dr, dc) != (0, 0):
         nr = row + dr
         nc = col + dc
         if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]):
             heappush(pq, (heat_loss + grid[nr][nc], nr, nc, dr, dc, n + 1))
 
-    for ndr, ndc in [(1,0), (0,1), (-1,0), (0,-1)]:
-        if (ndr, ndc) != (dr, dc) and (ndr, ndc) != (-dr, -dc):
-            nr = row + ndr
-            nc = col + ndc
-            if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]):
-                heappush(pq, (heat_loss + grid[nr][nc], nr, nc, ndr, ndc, 1))
+    if n >= 4 or (dr, dc) == (0, 0):
+        for ndr, ndc in [(1,0), (0,1), (-1,0), (0,-1)]:
+            if (ndr, ndc) != (dr, dc) and (ndr, ndc) != (-dr, -dc):
+                nr = row + ndr
+                nc = col + ndc
+                if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]):
+                    heappush(pq, (heat_loss + grid[nr][nc], nr, nc, ndr, ndc, 1))
